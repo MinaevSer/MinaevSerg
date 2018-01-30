@@ -1,0 +1,12 @@
+body{
+    padding-top: 160px;
+}
+#main_panel{
+    min-height: 600px;
+}
+#item_bage{
+    min-height: 450px;
+}
+.error_span{
+    color: red;
+}

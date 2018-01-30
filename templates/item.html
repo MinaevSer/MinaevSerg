@@ -1,0 +1,56 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{% static "styles.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "Bootstrap3/css/bootstrap.css" %}">
+    <title>{{ tovar.name }}</title>
+</head>
+<body>
+    {% include 'scripts.html' %}
+    {% include 'navbar.html' %}
+    <div class="container-fluid" >
+    <div class="panel panel-default">
+        <div class="panel-body" id="main_panel">
+            <div class="row">
+                <div class="col-sm-8">
+                    <img src="{{ tovar.image.url}}" alt="" width="300px">
+                    <h1>{{ tovar.name }}</h1>
+                    <p>{{ tovar.ingredients }}</p>
+                    <strong>Стоимость: <strong id="item_price">{{ tovar.price }}</strong><strong id="change_price"></strong> руб </strong>
+                    <div>
+                        <br>
+                        <form id="form_number_products" class="form-inline" action="{% url 'cart_add' %}">{% csrf_token %}
+                            <div class="form-group">
+                                <input type="number" class="form-control" name="number" id="number" min="1" value="1">
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success btn-buy" id="submit_btn"
+                                        data-product_id = "{{ tovar.id }}"
+                                        data-name = "{{ tovar.name }}"
+                                        data-price = "{{ tovar.price }}"
+                                        data-size = "{{ tovar.size }}"
+                                >
+                                    В корзину
+                                </button>
+                            </div>
+                            {% if tovar.category.name != "Напитки"%}
+                                <div class="form-group" id="radio_group">
+                                    <label><input type="radio" name="size" value="35">Большая</label><br>
+                                    <label><input type="radio" name="size" value="30" checked>Средняя</label><br>
+                                    <label><input type="radio" name="size" value="25">Маленькая</label>
+                                </div>
+                            {% endif %}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer"> Created by M&K, 2018</div>
+    </div>
+    </div>
+</body>
+</html>
